@@ -20,6 +20,7 @@ const Block = styled.div`
     padding-bottom: ${({ proportions }) => 100 * proportions}%;
   }
 
+  background-color: ${({ bgColor }) => bgColor};
   background-image: url(${({ background }) => background});
   background-position: center center;
   background-size: cover;
@@ -41,9 +42,20 @@ const Content = styled.div`
 
 const Text = styled.div`
   flex-grow: 1;
+  color: ${({ fontColor }) => fontColor} !important;
+  * {
+    color: ${({ fontColor }) => fontColor} !important;
+  }
   font-size: ${({ fontSizeModifier }) => fontSizeModifier}em;
   padding: ${({ fontSizeModifier }) => fontSizeModifier * VIRTUAL_PADDING}px;
   margin-bottom: 0 !important;
+  ${({ useTextBg, textBgColor }) =>
+    useTextBg &&
+    `
+  background: ${textBgColor}99;
+  margin: 15px;
+  border-radius: 5px;
+  `}
 `;
 const Counter = styled.div`
   font-size: 0.8em;
@@ -58,7 +70,11 @@ const Slide = ({
   totalLength,
   fontSize,
   background,
-  proportions
+  proportions,
+  fontColor,
+  bgColor,
+  textBgColor,
+  useTextBg,
 }) => {
   const [currentWidth, setCurrentWidth] = useState(0);
   const blockRef = useRef();
@@ -79,11 +95,15 @@ const Slide = ({
     <Block
       ref={blockRef}
       background={background}
+      bgColor={bgColor}
       proportions={proportions}
       className="slide"
     >
       <Content>
         <Text
+          fontColor={fontColor}
+          textBgColor={textBgColor}
+          useTextBg={useTextBg}
           className="content"
           fontSizeModifier={(fontSize * currentWidth) / VIRTUAL_WIDTH}
         >
@@ -103,7 +123,9 @@ Slide.propTypes = {
   totalLength: PropTypes.number.isRequired,
   fontSize: PropTypes.number.isRequired,
   proportions: PropTypes.number.isRequired,
-  background: PropTypes.string
+  background: PropTypes.string,
+  fontColor: PropTypes.string.isRequired,
+  bgColor: PropTypes.string.isRequired,
 };
 
 Slide.defaultProps = {};

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Slide from "./Slide";
 
-const Slides = ({ text, fontSize, background, proportions }) => {
+const Slides = ({ text, ...styles }) => {
   const textParts = text.split("===");
   return textParts.map((part, index) => (
     <Slide
@@ -11,9 +11,7 @@ const Slides = ({ text, fontSize, background, proportions }) => {
       text={part}
       index={index}
       totalLength={textParts.length}
-      fontSize={fontSize}
-      background={background}
-      proportions={proportions}
+      {...styles}
     />
   ));
 };
@@ -22,7 +20,9 @@ Slides.propTypes = {
   text: PropTypes.string.isRequired,
   fontSize: PropTypes.number.isRequired,
   proportions: PropTypes.number.isRequired,
-  background: PropTypes.string
+  background: PropTypes.string,
+  fontColor: PropTypes.string.isRequired,
+  bgColor: PropTypes.string.isRequired,
 };
 
 export default Slides;

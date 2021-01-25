@@ -6,10 +6,10 @@ import Controls from "./Controls";
 import Hints from "./Hints";
 import RenderButton from "./RenderButton";
 
-const useCallbackedState = initialValue => {
+const useCallbackedState = (initialValue) => {
   const [value, setValue] = useState("");
 
-  const handleValueChange = useCallback(e => {
+  const handleValueChange = useCallback((e) => {
     setValue(e.target.value);
   }, []);
 
@@ -22,6 +22,10 @@ function App() {
   const [proportions, setProportions] = useState(1);
 
   const [fontSize, setFontSize] = useState(1);
+  const [fontColor, setFontColor] = useState("#000000");
+  const [bgColor, setBgColor] = useState("#ffffff");
+  const [textBgColor, onTextBgColorChange] = useState("#ffffff");
+  const [useTextBg, setUseTextBg] = useState(false);
 
   return (
     <div className="section">
@@ -38,12 +42,24 @@ function App() {
               background={background}
               handleBackgroundChange={handleBackgroundChange}
               setProportions={setProportions}
+              fontColor={fontColor}
+              onFontColorChange={setFontColor}
+              bgColor={bgColor}
+              onBgColorChange={setBgColor}
+              useTextBg={useTextBg}
+              setUseTextBg={setUseTextBg}
+              textBgColor={textBgColor}
+              onTextBgColorChange={onTextBgColorChange}
             />
             <Slides
               text={text}
               fontSize={fontSize}
               background={background}
               proportions={proportions}
+              fontColor={fontColor}
+              bgColor={bgColor}
+              useTextBg={useTextBg}
+              textBgColor={textBgColor}
             />
           </div>
         </div>
