@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import 'bulma';
 import App from '../components/App';
 
 export default function Home() {
